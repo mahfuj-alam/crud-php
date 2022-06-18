@@ -1,5 +1,11 @@
 <?php
 require_once"inc/functions.php";
+$info = '';
+$task = $_GET['task']?? 'report';
+if('seed'==$task){
+    seed();
+    $info = "Seed completed";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,9 +29,30 @@ require_once"inc/functions.php";
             <div class="column column-60 column-offset-20">
                 <h1>CRUD</h1>
                 <p>A simple project using PHP</p>
-                <?php include_once("inc/templates/nav.php");?>
+                <?php include_once('inc/templates/nav.php');?>
+                <hr>
+                <?php
+                if($info != ''){
+                    echo "<p>{$info}</p>";
+                }
+                ?>
             </div>
         </div>
+        <?php if('report'==$task):?>
+            <div class="row">
+                <div class="column column-60 column-offset-20">
+                    <?php generateReport();?>
+                </div>
+            </div>
+        <?php endif;?>
+        <?php if('add'==$task):?>
+            <div class="row">
+                <div class="column column-60 column-offset-20">
+                   <form action="/crud-php/index.php?report"></form>
+                </div>
+            </div>
+        <?php endif;?>
+           
     </div>
 </body>
 </html>
